@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+start() {
+	minikube delete &&
+		minikube start --addons ingress &&
+		minikube addons enable ingress
+	sudo minikube tunnel &>/dev/null
+}
+
+start
