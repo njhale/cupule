@@ -1,0 +1,11 @@
+args: {
+    // This comment is used to autogenerate `welcome` option help text for `acorn run . --help` 
+    welcome: "Hello Acorn!" // These become `acorn run` "options" so shouldn't the "args" section really be "options" if we're being pedantic?
+}
+
+containers: {
+    app: {
+        build: "."
+        ports: publish: "9000/http"
+    }
+}
