@@ -1,26 +1,30 @@
 args: {
-	// This comment is used to autogenerate `welcome` option help text for `acorn run . --help`
-	welcome: "Hello Acorn!" // These become `acorn run` "options" so shouldn't the "args" section really be "options" if we're being pedantic?
+	welcome: "Hello Acorn!"
 }
 
-containers: app: {
+//containers: app: {
+//	build: "."
+//	ports: publish: [
+//		{
+//			targetPort: 9000
+//			protocol:   "http"
+//			path:       "/ahoy?username=@{secrets.my-creds.username}"
+//		},
+//	]
+//}
+
+jobs: ahoy: {
 	build: "."
-	ports: publish: "9000/http"
-	env: {
-		MY_USERNAME: "secret://my-creds/username"
-		MY_PASSWORD: "secret://my-creds/password"
-	}
+	ports: publish: [
+		{
+			targetPort: 9000
+			protocol:   "http"
+			path:       "/ahoy?token=@{secrets.token-ahoy.token}"
+		},
+	]
 }
 
-// ...
+
 secrets: {
-	"db-root-password": type: "token"
-}
-
-secrets: "my-creds": {
-	type: "basic" // required
-	data: {
-		username: "" // optional
-		password: "" // optional
-	}
+	"token-ahoy": type: "token"
 }
